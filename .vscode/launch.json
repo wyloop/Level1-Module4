@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ChuckleClicker",
+            "request": "launch",
+            "mainClass": "_01_chuckle_clicker.ChuckleClicker",
+            "projectName": "Level1-Module4_bb05590a"
+        },
+        {
+            "type": "java",
             "name": "AdvancedBinaryConverter",
             "request": "launch",
             "mainClass": "_99_extra.AdvancedBinaryConverter"
