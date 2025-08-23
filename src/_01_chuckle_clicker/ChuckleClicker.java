@@ -18,5 +18,7 @@ public class ChuckleClicker {
         frame.add(buttonOne);
         JButton buttonTwo = new JButton("button 2");
         frame.add(buttonTwo);
+        
+        frame.setVisible(true);
     }
 }
