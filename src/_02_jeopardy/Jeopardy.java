@@ -33,12 +33,13 @@ import game_tools.Sound;
 public class Jeopardy implements ActionListener {
 	private JButton firstButton;
 	private JButton secondButton;
-	private JButton thirdButton, fourthButton;
+	private JButton thirdButton, fourthButton, fifthButton;
 	private JPanel quizPanel;
 	private int score = 0;
 	private JLabel scoreBox = new JLabel("0");
 	private int buttonCount = 0;
 	private Sound jeopardyThemeClip;
+	private Sound jeopardyAnswerClip;
 
 
 
@@ -76,7 +77,20 @@ public class Jeopardy implements ActionListener {
 		// 12. Write the code to complete the actionPerformed() method below
 
 		// 13. Add buttons so that you have $200, $400, $600, $800 and $1000 questions
+		thirdButton = createButton("$600");
+		quizPanel.add(thirdButton);
 		
+		thirdButton.addActionListener(this);
+		
+		fourthButton = createButton("$800");
+		quizPanel.add(fourthButton);
+		
+		fourthButton.addActionListener(this);
+		
+		fifthButton = createButton("$1000");
+		quizPanel.add(fifthButton);
+		
+		fifthButton.addActionListener(this);
 		 /*
 		 * [optional] Use the showImage or playSound methods when the user answers a
 		 * question
@@ -122,6 +136,18 @@ public class Jeopardy implements ActionListener {
 			// Call the askQuestion() method with a harder question
 			askQuestion("What is used to assign variables to an instance of a class when created?", "Constructor", 400);
 		}
+		
+		if(buttonPressed == thirdButton) {
+			askQuestion("What is the function that runs whenever you start a project? (Please write the full name)", "public static void main(String[] args)", 600);
+		}
+		
+		if(buttonPressed == fourthButton) {
+			askQuestion("What is the library used to add a user interface to a Java project?", "Swing", 800);
+		}
+		
+		if(buttonPressed == fifthButton) {
+			askQuestion("What is needed to run a Java project?", "Java Runtime Environment", 1000);
+		}
 		// Clear the text on the button that was pressed (set the button text to nothing)
 		buttonPressed.setText(null);
 	}
@@ -139,15 +165,21 @@ public class Jeopardy implements ActionListener {
 		if (answer.equalsIgnoreCase(correctAnswer)) {
 			// Increase the score by the prizeMoney
 			score += prizeMoney;
+			playQuestionSound(true);
 			// Pop up a message to tell the user they were correct
 			JOptionPane.showMessageDialog(null, "Correct!");
+			
+			
 		} else {
 		// Otherwise
 
 			// Decrement the score by the prizeMoney
 			score -= prizeMoney;
+			playQuestionSound(false);
 			// Pop up a message to tell the user they were wrong and give them the correct answer
 			JOptionPane.showMessageDialog(null, "Incorrect. Correct answer: " + correctAnswer);
+			
+			
 		}
 		// Call the updateScore() method
 		updateScore();
@@ -157,6 +189,17 @@ public class Jeopardy implements ActionListener {
 		String fileName = "_02_jeopardy/jeopardy.wav";
 		jeopardyThemeClip = new Sound(fileName);
 		jeopardyThemeClip.play();
+	}
+	
+	public void playQuestionSound(boolean correct) {
+		String fileName;
+		if(correct) {
+			fileName = "_02_jeopardy/jeopardy-correct.wav";
+		} else {
+			fileName = "_02_jeopardy/jeopardy-incorrect.wav";
+		}
+		jeopardyAnswerClip = new Sound(fileName);
+		jeopardyAnswerClip.play();
 	}
 
 	public void stopJeopardyTheme() {
